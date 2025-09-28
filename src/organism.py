@@ -4,18 +4,21 @@ class Organism:
     """
     全ての生物の基底クラス。個体の状態を管理する。
     """
-    def __init__(self, x, y, config, parent_id=None):
+    def __init__(self, x, y, config, parent_ids=None, init_satiety_level=None): # parent_idからparent_idsに変更
         self.id = uuid.uuid4()
-        self.parent_id = parent_id
+        self.parent_ids = parent_ids # 単一IDからIDのタプルに変更
         self.x = x
         self.y = y
         
         self.age = 0
-        self.satiety_level = config.MAX_SATIETY
+        if init_satiety_level is None:
+            self.satiety_level = config.MAX_SATIETY
+        else:
+            self.satiety_level = init_satiety_level
         self.fatigue_level = config.MAX_FATIGUE
         
         self.is_alive = True
-        self.death_cause = None # 死因を記録
+        self.death_cause = None
         self.config = config
 
         self.action_space = list(range(6))
@@ -49,12 +52,12 @@ class Organism:
 
 class Herbivore(Organism):
     """草食動物"""
-    def __init__(self, x, y, config, parent_id=None):
-        super().__init__(x, y, config, parent_id)
+    def __init__(self, x, y, config, parent_ids=None, init_satiety_level=None):
+        super().__init__(x, y, config, parent_ids, init_satiety_level=init_satiety_level)
         self.type_id = 2
 
 class Carnivore(Organism):
     """肉食動物"""
-    def __init__(self, x, y, config, parent_id=None):
-        super().__init__(x, y, config, parent_id)
+    def __init__(self, x, y, config, parent_ids=None, init_satiety_level=None):
+        super().__init__(x, y, config, parent_ids, init_satiety_level=init_satiety_level)
         self.type_id = 3

@@ -13,7 +13,7 @@ class ActorCritic(nn.Module):
             action_num (int): 出力する行動の数
         """
         super(ActorCritic, self).__init__()
-        # 観測範囲のサイズ (マンハッタン距離n -> (2n+1)x(2n+1)の正方形)
+        # 観測範囲のサイズ ((2n+1)x(2n+1)の正方形)
         obs_size = 2 * Config.OBSERVATION_RANGE + 1
 
         # CNNを用いて観測範囲の特徴を抽出
